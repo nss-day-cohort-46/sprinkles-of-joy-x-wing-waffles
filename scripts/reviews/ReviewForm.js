@@ -1,8 +1,7 @@
 
-// const leaveReviewButton = document.querySelector("#leaveReview")
-// console.log(leaveReviewButton)
+const eventHub = document.querySelector("#container")
 
-// leaveReviewButton.addEventListener("click", e => {
-//     console.log(e)
-// })
+eventHub.addEventListener("leaveReview", e => {
+    console.log(e)
+})
 

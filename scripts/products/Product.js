@@ -12,20 +12,29 @@ export const Product = (product, category) => {
               <p>${product.description} [${category.name}]</p>
           </div>
           <div>
-              <button id="leaveReview">Leave A Review</button>
+              <button id="leaveReview--${product.id}">Leave A Review</button>
           </div>
       </section>
   `
 }
 
 eventHub.addEventListener("click", evt => {
+    // console.log(evt)
     if (evt.target.id.startsWith("addProduct--")) {
         const [prefix, productId] = evt.target.id.split("--")
         const addProductEvent = new CustomEvent("addToCart", {
             detail: {
-                addedProduct: parseInt(productId)
+                addedProduct: productId
             }
         })
         eventHub.dispatchEvent(addProductEvent)
+    } else if (evt.target.id.startsWith("leaveReview--")) {
+        const [ prefix, reviewProductId ] = evt.target.id.split("--")
+        const leaveReviewEvent = new CustomEvent("leaveReview", {
+            detail: {
+                reviewedProduct: reviewProductId
+            }
+        })
+        eventHub.dispatchEvent(leaveReviewEvent)
     }
 })

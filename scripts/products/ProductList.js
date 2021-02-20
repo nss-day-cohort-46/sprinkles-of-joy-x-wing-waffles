@@ -21,6 +21,7 @@ export const ProductList = () => {
 const render = () => {
   contentTarget.innerHTML = renderProducts.map(product => {
     const productCategory = bakeryCategories.find(cat => cat.id === product.categoryId) 
+    // console.log(product)
     return Product(product, productCategory)
   }).join("")
 }
