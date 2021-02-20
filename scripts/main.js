@@ -13,3 +13,7 @@ LoginForm()
 CustomerNav()
 CategorySelect()
 ProductList()
+
+const user = () => sessionStorage.setItem("soj-customer-id", 1)
+
+user()

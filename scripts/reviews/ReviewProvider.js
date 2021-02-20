@@ -32,16 +32,3 @@ export const saveReview = reviewObj => {
 
 }
 
-
-export const saveNote = note => {
-    return fetch('http://localhost:8088/notes', {
-        method: "POST",
-        headers: {
-            // notes: ["noteDate", "noteComment", "noteConclusion"]
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(note)
-    })
-    .then(getNotes)
-    .then(reviewStateChangeEvent)
-  }
