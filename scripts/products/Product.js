@@ -1,6 +1,7 @@
 const eventHub = document.querySelector("#container")
 
-export const Product = (product, category) => {
+export const Product = (product, category, rating) => {
+    // console.log(rating)
     return `
       <section class="baked_good">
           <header class="baked_good__header">
@@ -11,13 +12,19 @@ export const Product = (product, category) => {
               <button id="addProduct--${product.id}">Add to Cart</button>
               <p>${product.description} [${category.name}]</p>
           </div>
+          ${rating !== 0 ? `<div class="rating">${rating}</div>` : `<div>no reviews, yet</div>`}
           <div>
-              <button id="leaveReview--${product.id}">Leave A Review</button>
+          <button id="leaveReview--${product.id}">Leave A Review</button>
           </div>
-      </section>
-  `
-}
-
+          </section>
+          `
+        }
+        
+        // ${rating.map(r => {
+        //     const rateRender = Math.round((r.rating + r.rating)/rating.length)
+        //   return `<div class="rating" id="">${rateRender}</div>`
+        // }).join('')}
+        
 eventHub.addEventListener("click", evt => {
     // console.log(evt)
     if (evt.target.id.startsWith("addProduct--")) {
