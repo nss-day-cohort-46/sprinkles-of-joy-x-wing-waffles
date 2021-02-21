@@ -4,7 +4,7 @@ import { getProducts, useProducts } from "../products/ProductProvider.js"
 import { saveReview } from "./ReviewProvider.js"
 
 const eventHub = document.querySelector("#container")
-const contentTarget = document.querySelector(".review_form")
+const contentTarget = document.querySelector(".review__form")
 
 eventHub.addEventListener("leaveReview", e => {
     console.log(e.detail.reviewedProduct)
@@ -25,11 +25,11 @@ const renderReviewForm = (product) => {
         <fieldset>
                 <label for="reviewSelect">Rating:</label>
                 <select class="reviewSelect" id="reviewSelect">
-                    <option value="🌟">🌟</option>
-                    <option value="🌟 🌟">🌟 🌟</option>
-                    <option value="🌟 🌟 🌟">🌟 🌟 🌟</option>
-                    <option value="🌟 🌟 🌟 🌟">🌟 🌟 🌟 🌟</option>
-                    <option value="🌟 🌟 🌟 🌟 🌟">🌟 🌟 🌟 🌟 🌟</option>
+                    <option value="1">⭐</option>
+                    <option value="2">⭐ ⭐</option>
+                    <option value="3">⭐ ⭐ ⭐</option>
+                    <option value="4">⭐ ⭐ ⭐ ⭐</option>
+                    <option value="5">⭐ ⭐ ⭐ ⭐ ⭐</option>
                 </select>
         </fieldset>
         <fieldset>

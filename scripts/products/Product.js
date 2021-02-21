@@ -3,31 +3,31 @@ const eventHub = document.querySelector("#container")
 export const Product = (product, category, rating) => {
     let ratingRender = ""
     if (rating === 1) {
-        ratingRender = "🌟"
+        ratingRender = "⭐"
     } else if (rating === 2) {
-        ratingRender = "🌟🌟"
+        ratingRender = "⭐ ⭐"
     } else if (rating === 3) {
-        ratingRender = "🌟🌟🌟"
+        ratingRender = "⭐ ⭐"
     } else if (rating === 4) {
-        ratingRender = "🌟🌟🌟🌟"
+        ratingRender = "⭐ ⭐ ⭐ ⭐"
     } else if (rating === 5) {
-        ratingRender = "🌟🌟🌟🌟🌟"
+        ratingRender = "⭐ ⭐ ⭐ ⭐ ⭐"
     }
     return `
       <section class="baked_good">
           <header class="baked_good__header">
-              <h4>${product.name}</h4>
-              <p>$${product.price}</p>
+            <h4>${product.name}</h4>
+            <p>$${product.price}</p>
           </header>
           <div>
-              <button id="addProduct--${product.id}">Add to Cart</button>
-              <p>${product.description} [${category.name}]</p>
+            <button id="addProduct--${product.id}">Add to Cart</button>
+            <p>${product.description} [${category.name}]</p>
+            ${rating !== 0 ? `<div class="rating">Rating: <a href="#" id="reviewDetails">${ratingRender}</a></div>` : `<div>no reviews, yet</div>`}
           </div>
-          ${rating !== 0 ? `<div class="rating">Rating: ${ratingRender}</div>` : `<div>no reviews, yet</div>`}
           <div>
-          <button id="leaveReview--${product.id}">Leave A Review</button>
+            <button id="leaveReview--${product.id}">Leave A Review</button>
           </div>
-          </section>
+        </section>
           `
         }
         
@@ -49,5 +49,7 @@ eventHub.addEventListener("click", evt => {
             }
         })
         eventHub.dispatchEvent(leaveReviewEvent)
-    }
+    } else if (evt.target.id === "reviewDetails")
+        const viewReviewDetails = new CustomEvent("reviewDetails")
+        eventHub.dispatchEvent(viewReviewDetails)
 })
