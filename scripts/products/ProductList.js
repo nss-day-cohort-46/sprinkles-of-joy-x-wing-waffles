@@ -25,12 +25,11 @@ export const ProductList = () => {
 const render = () => {
   contentTarget.innerHTML = renderProducts.map(product => {
     const productCategory = bakeryCategories.find(cat => cat.id === product.categoryId) 
-    const reviewsForEachProduct = useReviews().filter(reviews => reviews.productId === product.id)
+    const reviewsForEachProduct = productReviews.filter(reviews => reviews.productId === product.id)
       if (reviewsForEachProduct.length > 0) {
         const arrayOfRatings = reviewsForEachProduct.map(r => r.rating)
         let rating = arrayOfRatings.reduce((rating1, ratingNext) => rating1 + ratingNext, 0)
         rating = Math.round(rating/arrayOfRatings.length)
-        console.log(rating)
         return Product(product, productCategory, rating)
       } else {
         return Product(product, productCategory, 0)
