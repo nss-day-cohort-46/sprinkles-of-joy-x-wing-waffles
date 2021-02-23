@@ -22,7 +22,7 @@ export const Product = (product, category, rating) => {
           <div>
             <button id="addProduct--${product.id}">Add to Cart</button>
             <p>${product.description} [${category.name}]</p>
-            ${rating !== 0 ? `<div class="rating">Rating: <a href="#" id="reviewDetails">${ratingRender}</a></div>` : `<div>no reviews, yet</div>`}
+            ${rating !== 0 ? `<div class="rating">Rating: <a href="#" id="reviewDetails--${product.id}">${ratingRender}</a></div>` : `<div>no reviews, yet</div>`}
           </div>
           <div>
             <button id="leaveReview--${product.id}">Leave A Review</button>
@@ -32,9 +32,8 @@ export const Product = (product, category, rating) => {
         }
         
 eventHub.addEventListener("click", evt => {
-    // console.log(evt)
+    const [prefix, productId] = evt.target.id.split("--")
     if (evt.target.id.startsWith("addProduct--")) {
-        const [prefix, productId] = evt.target.id.split("--")
         const addProductEvent = new CustomEvent("addToCart", {
             detail: {
                 addedProduct: productId
@@ -42,14 +41,18 @@ eventHub.addEventListener("click", evt => {
         })
         eventHub.dispatchEvent(addProductEvent)
     } else if (evt.target.id.startsWith("leaveReview--")) {
-        const [ prefix, reviewProductId ] = evt.target.id.split("--")
         const leaveReviewEvent = new CustomEvent("leaveReview", {
             detail: {
-                reviewedProduct: reviewProductId
+                reviewedProduct: productId
             }
         })
         eventHub.dispatchEvent(leaveReviewEvent)
-    } else if (evt.target.id === "reviewDetails")
-        const viewReviewDetails = new CustomEvent("reviewDetails")
+    } else if (evt.target.id.startsWith("reviewDetails--")) {
+        const viewReviewDetails = new CustomEvent("viewReviews", {
+            detail: {
+                reviewedProduct: productId
+            }
+        }) 
         eventHub.dispatchEvent(viewReviewDetails)
+    }
 })

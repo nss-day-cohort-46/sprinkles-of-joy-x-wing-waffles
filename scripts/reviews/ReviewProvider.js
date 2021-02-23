@@ -1,8 +1,10 @@
 import { bakeryAPI } from "../Settings.js"
 
 let reviews = []
+let reviewForProduct = []
 
 export const useReviews = () => reviews.slice()
+export const useReviewForProduct = () => [ ...reviewForProduct ]
 
 const eventHub = document.querySelector("#container")
 
@@ -19,6 +21,14 @@ export const getReviews = () => {
     })
 }
 
+export const getReviewsForProduct = (productId) => {
+    return fetch(`${bakeryAPI.baseURL}/reviews?product=${productId}`)
+      .then(response => response.json())
+      .then(parsedResponse => {
+        reviewForProduct = parsedResponse
+      })
+  }
+
 export const saveReview = reviewObj => {
     return fetch(`${bakeryAPI.baseURL}/reviews`, {
         method: "POST",
@@ -29,6 +39,5 @@ export const saveReview = reviewObj => {
     })
     .then(getReviews)
     .then(reviewStateChangeEvent)
-
 }
 
