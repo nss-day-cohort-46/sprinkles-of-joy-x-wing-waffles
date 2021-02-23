@@ -32,9 +32,8 @@ export const Product = (product, category, rating) => {
         }
         
 eventHub.addEventListener("click", evt => {
-    console.log(evt)
+    const [prefix, productId] = evt.target.id.split("--")
     if (evt.target.id.startsWith("addProduct--")) {
-        const [prefix, productId] = evt.target.id.split("--")
         const addProductEvent = new CustomEvent("addToCart", {
             detail: {
                 addedProduct: productId
@@ -42,18 +41,16 @@ eventHub.addEventListener("click", evt => {
         })
         eventHub.dispatchEvent(addProductEvent)
     } else if (evt.target.id.startsWith("leaveReview--")) {
-        const [ prefix, reviewProductId ] = evt.target.id.split("--")
         const leaveReviewEvent = new CustomEvent("leaveReview", {
             detail: {
-                reviewedProduct: reviewProductId
+                reviewedProduct: productId
             }
         })
         eventHub.dispatchEvent(leaveReviewEvent)
     } else if (evt.target.id.startsWith("reviewDetails--")) {
-        const [ prefix, reviewProductId ] = evt.target.id.split("--")
         const viewReviewDetails = new CustomEvent("viewReviews", {
             detail: {
-                reviewedProduct: reviewProductId
+                reviewedProduct: productId
             }
         }) 
         eventHub.dispatchEvent(viewReviewDetails)
